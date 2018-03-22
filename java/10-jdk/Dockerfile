@@ -1,16 +1,15 @@
-FROM debian:8.10-slim
+FROM buildpack-deps:stretch-curl
 
 
 ARG FILE_NAME=jdk-10_linux-x64_bin.tar.gz
 ARG FILE_HASH=76eac37278c24557a3c4199677f19b62
 ARG ARCH=10+46
-ARG URL="http://download.oracle.com/otn-pub/java/jdk/${ARCH}/${FILE_HASH}/${FILE_NAME}"
+ARG URL=http://192.168.50.1:5000/dl/jdk-10_linux-x64_bin.tar.gz
 ARG ROOT=/usr/local/jdk
 
 WORKDIR $ROOT
 
-RUN apt-get update && apt-get install -y wget tar && \
-    wget --no-check-certificate -c \
+RUN wget --no-check-certificate -c \
     --header "Cookie: oraclelicense=accept-securebackup-cookie" \
     -O $FILE_NAME $URL && \
     tar -zxvf $FILE_NAME -C $ROOT && \
