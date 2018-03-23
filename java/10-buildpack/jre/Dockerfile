@@ -27,4 +27,4 @@ ENV JAVA_HOME=$HOME_PATH
 ENV CLASSPATH=".:$JAVA_HOME/lib/dt.jar:$JAVA_HOME/lib/tools.jar"
 ENV PATH="$JAVA_HOME/bin:$PATH"
 
-CMD java -version
+CMD ["java", "-version"]

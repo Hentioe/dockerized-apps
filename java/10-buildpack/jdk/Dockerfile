@@ -28,4 +28,4 @@ ENV JAVA_HOME=$HOME
 ENV CLASSPATH=".:$JAVA_HOME/lib/dt.jar:$JAVA_HOME/lib/tools.jar"
 ENV PATH="$JAVA_HOME/bin:$PATH"
 
-CMD javac
+CMD ["javac"]

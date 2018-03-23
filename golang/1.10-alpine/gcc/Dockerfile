@@ -5,4 +5,4 @@ RUN apk update \
     && apk add --no-cache ca-certificates gcc musl-dev
 
 
-CMD glide -v
+CMD ["glide", "-v"]

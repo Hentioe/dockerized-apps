@@ -6,4 +6,4 @@ RUN apk update \
     && go get -u github.com/Masterminds/glide
 
 
-CMD glide -v
+CMD ["glide", "-v"]

@@ -6,4 +6,4 @@ RUN apt update \
     && rm -rf /var/lib/apt/lists/*
 
 
-CMD ['irb']
+CMD ["irb"]
