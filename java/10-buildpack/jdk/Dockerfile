@@ -6,7 +6,7 @@ ARG FILE_HASH=76eac37278c24557a3c4199677f19b62
 ARG ARCH=10+46
 ARG URL="http://download.oracle.com/otn-pub/java/jdk/${ARCH}/${FILE_HASH}/${FILE_NAME}"
 ARG HOME=/usr/local/java
-ARG ROOT=/data
+ARG ROOT=/source
 
 
 WORKDIR $ROOT
@@ -15,6 +15,7 @@ WORKDIR $ROOT
 RUN wget --no-check-certificate -c \
     --header "Cookie: oraclelicense=accept-securebackup-cookie" \
     -O $FILE_NAME $URL && \
+    mkdir $HOME  && \
     tar -zxvf $FILE_NAME -C $HOME && \
     rm $FILE_NAME && \
     cd $HOME && mv `echo *`/* "$HOME/" && \
