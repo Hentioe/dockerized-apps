@@ -16,7 +16,7 @@ RUN wget -O $FILE_NAME $URL \
     && mkdir $HOME_PATH  \
     && tar -zxvf $FILE_NAME -C $HOME_PATH \
     && rm $FILE_NAME \
-    && cd $HOME_PATH && mv `echo *`/* "$HOME/" \
+    && cd $HOME_PATH && mv `echo *`/* "$HOME_PATH/" \
     && rm -rf /var/lib/apt/lists/* \
     && ln -s "$HOME_PATH/bin/mvn" /usr/bin/mvn
 
@@ -24,5 +24,4 @@ ENV MAVEN_HOME=$HOME_PATH
 ENV MAVEN_CONFIG="$ROOT/.m2"
 ENV PATH=$MAVEN_HOME/bin:$PATH
 
-ENTRYPOINT ['mvn']
-CMD ['mvn']
+ENTRYPOINT ["mvn"]

@@ -18,12 +18,11 @@ RUN apt-get update \
     && mkdir $HOME_PATH  \
     && unzip $FILE_NAME -d $HOME_PATH \
     && rm $FILE_NAME \
-    && cd $HOME_PATH && mv `echo *`/* "$HOME/" \
+    && cd $HOME_PATH && mv `echo *`/* "$HOME_PATH/" \
     && rm -rf /var/lib/apt/lists/* \
     && ln -s "$HOME_PATH/bin/gradle" /usr/bin/gradle
 
 ENV GRADLE_HOME=$HOME_PATH
 ENV PATH=$GRADLE_HOME/bin:$PATH
 
-ENTRYPOINT ['gradle']
-CMD ['gradle']
+ENTRYPOINT ["gradle"]
