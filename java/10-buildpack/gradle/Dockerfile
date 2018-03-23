@@ -12,7 +12,8 @@ ARG WORK_PATH=/home/gradle
 WORKDIR $WORK_PATH
 
 
-RUN apt-get install unzip \
+RUN apt-get update \
+    && apt-get install unzip \
     && wget -O $FILE_NAME $URL \
     && mkdir $HOME_PATH  \
     && unzip $FILE_NAME -d $HOME_PATH \
