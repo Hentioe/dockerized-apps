@@ -6,7 +6,7 @@ ARG FILE_HASH=76eac37278c24557a3c4199677f19b62
 ARG ARCH=10+46
 ARG URL="http://download.oracle.com/otn-pub/java/jdk/${ARCH}/${FILE_HASH}/${FILE_NAME}"
 ARG HOME=/usr/local/java
-ARG ROOT=/source
+ARG ROOT=/root
 
 
 WORKDIR $ROOT
