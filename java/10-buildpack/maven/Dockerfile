@@ -21,7 +21,7 @@ RUN wget -O $FILE_NAME $URL \
     && ln -s "$HOME_PATH/bin/mvn" /usr/bin/mvn
 
 ENV MAVEN_HOME=$HOME_PATH
-ENV MAVEN_CONFIG="$ROOT/.m2"
+ENV MAVEN_CONFIG="$WORD_PATH/.m2"
 ENV PATH=$MAVEN_HOME/bin:$PATH
 
 ENTRYPOINT ["mvn"]
