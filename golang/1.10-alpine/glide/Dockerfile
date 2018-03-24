@@ -2,7 +2,7 @@ FROM golang:1.10-alpine3.7
 
 
 ARG WORK_PATH=/home/src
-ARG GO_PATH=/home/gopath
+ARG GO_PATH=/home/GOPATH
 ARG TARGET=$GO_PATH/src/targetProject
 ARG CACHE_DIR=/home/cache
 ARG GLIDE_CONFIG_DIR=/root/.glide
