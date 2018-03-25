@@ -6,7 +6,9 @@ ARG FILE_NAME="apache-maven-$VERSION-bin.tar.gz"
 ARG URL="http://apache.communilink.net/maven/maven-3/$VERSION/binaries/$FILE_NAME"
 
 ARG HOME_PATH=/usr/local/maven
-ARG WORD_PATH=/home/maven
+ARG WORD_PATH=/home/src
+ARG CONFIG_DIR=/root/.m2
+ARG CACHE_DIR=/home/cache
 
 
 WORKDIR $WORD_PATH
@@ -18,7 +20,9 @@ RUN wget -O $FILE_NAME $URL \
     && rm $FILE_NAME \
     && cd $HOME_PATH && mv `echo *`/* "$HOME_PATH/" \
     && rm -rf /var/lib/apt/lists/* \
-    && ln -s "$HOME_PATH/bin/mvn" /usr/bin/mvn
+    && ln -s "$HOME_PATH/bin/mvn" /usr/bin/mvn \
+    && mkdir -p $CONFIG_DIR $CACHE_DIR \
+    && ln -s $CACHE_DIR "$CACHE_DIR/repository"
 
 ENV MAVEN_HOME=$HOME_PATH
 ENV MAVEN_CONFIG="$WORD_PATH/.m2"
