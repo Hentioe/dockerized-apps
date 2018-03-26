@@ -171,5 +171,6 @@ CMD ["ruby", "www.rb", "production"]
 注：build-essential 是 Debian 中的包名。
 
 libmysql 镜像是面向常见的 Ruby+Mysql 场景，需要系统环境包含 libmysql 包才能使项目正常工作。
+___
 
 *更多镜像待更新*
