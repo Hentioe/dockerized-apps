@@ -135,8 +135,8 @@ docker run -i --rm -v $PWD:/home/src -v cache-yarn:/home/cache bluerain/node-8.1
 
 |封装环境|名称+标签|FROM|
 |-------|--------|--------|
-|Ruby+build-essential|bluerain/ruby-2.5-slim:buildessential|library/ruby:2.5-slim|
-|Ruby+build-essential+libmysql|bluerain/ruby-2.5-slim:libmysql|bluerain/ruby-2.5-slim:buildessential|
+|Ruby+build-essential|bluerain/ruby-2.5-slim:build-essential|library/ruby:2.5-slim|
+|Ruby+build-essential+libmysql|bluerain/ruby-2.5-slim:libmysql|bluerain/ruby-2.5-slim:build-essential|
 
 注：当前分支：2.5
 
@@ -167,7 +167,7 @@ EXPOSE 8080
 
 CMD ["ruby", "www.rb", "production"]
 ````
-需要安装包含 Native 代码依赖的 Ruby 项目必须要包含 build-essentail 中的编译工具链才能完成依赖安装工作，所以仅仅靠 Ruby 官方的 Docker 镜像是不行的，需要基于它们二次定制。  
+Gem 拉取依赖时碰到包含 Native 代码的依赖必须要使用 build-essentail 中的编译工具链才能完成安装工作，所以仅仅靠 Ruby 官方的 Docker 镜像是不行的，需要基于它们二次定制。  
 注：build-essential 是 Debian 中的包名。
 
 libmysql 镜像是面向常见的 Ruby+Mysql 场景，需要系统环境包含 libmysql 包才能使项目正常工作。
