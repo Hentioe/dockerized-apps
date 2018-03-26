@@ -85,9 +85,10 @@ COPY ./<YOUR_WAR_PATH> /home/app/ROOT.war
 docker run -i --rm -v $PWD:/home/src bluerain/golang-1.10-alpine:glide
 ````
 
-注意了，因为挂载到 `/home/src` 的目录会链接到容器中的 `$GOPATH/src/targetProject` 中，所以无论宿主机系统上的项目存放在哪个位置最终都能正确编译。  
+注意了，因为挂载到 `/home/src` 的目录会链接到容器中的 `$GOPATH/src/targetProject` 中，所以无论宿主机系统上的项目存放在哪个位置最终都能正确编译。  
+
 持久化 Glide 缓存到指定 VOLUME:
 
-```` bash
+```` shell
 docker run -i --rm -v $PWD:/home/src -v cache-glide:/home/cache bluerain/golang-1.10-alpine:glide
 ````
