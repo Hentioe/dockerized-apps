@@ -10,11 +10,8 @@ ARG HOME_PATH=/usr/local/java
 ARG OPTS=-Dfile.encoding=UTF8
 
 
-RUN wget --no-check-certificate -c \
-    --header "Cookie: oraclelicense=accept-securebackup-cookie" \
-    -O $FILE_NAME $URL
-
-RUN mkdir $HOME_PATH  \
+RUN wget --no-check-certificate -c --header "Cookie: oraclelicense=accept-securebackup-cookie" -O $FILE_NAME $URL \
+    && mkdir $HOME_PATH  \
     && tar -zxvf $FILE_NAME -C $HOME_PATH \
     && rm $FILE_NAME \
     && cd $HOME_PATH && mv `echo *`/* "$HOME_PATH/" \

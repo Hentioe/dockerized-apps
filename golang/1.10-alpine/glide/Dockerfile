@@ -13,8 +13,8 @@ COPY ./build.sh /usr/bin/build
 
 RUN apk update \
     && apk add --no-cache ca-certificates git gcc musl-dev \
-    && go get -u github.com/Masterminds/glide
-RUN chmod +x /usr/bin/build \
+    && go get -u github.com/Masterminds/glide \
+    && chmod +x /usr/bin/build \
     && mkdir -p $WORK_PATH "$GO_PATH/src" $TARGE $CACHE_DIR $CONFIG_DIR \
     && ln -s $WORK_PATH $TARGET \
     && ln -s $CACHE_DIR "$CONFIG_DIR/cache"

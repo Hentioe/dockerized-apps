@@ -12,12 +12,10 @@ ARG CACHE_DIR=/home/cache
 
 
 RUN apt-get update \
-    && apt-get install unzip
-
-RUN wget -O $FILE_NAME $URL \
-    && mkdir $HOME_PATH
-
-RUN unzip $FILE_NAME -d $HOME_PATH \
+    && apt-get install unzip \
+    && wget -O $FILE_NAME $URL \
+    && mkdir $HOME_PATH \
+    && unzip $FILE_NAME -d $HOME_PATH \
     && rm $FILE_NAME \
     && cd $HOME_PATH && mv `echo *`/* "$HOME_PATH/" \
     && mkdir -p $CONFIG_DIR $CACHE_DIR \

@@ -13,9 +13,8 @@ ARG WEBAPPS_DIR="$HOME_PATH/webapps"
 
 
 RUN mkdir -p $HOME_PATH $WORK_PATH $LOGS_DIR \
-    && wget -O $FILE_NAME $URL
-
-RUN tar -zxvf $FILE_NAME -C $HOME_PATH \
+    && wget -O $FILE_NAME $URL \
+    && tar -zxvf $FILE_NAME -C $HOME_PATH \
     && rm $FILE_NAME \
     && cd $HOME_PATH && mv `echo *`/* "$HOME_PATH/" \
     && mv "$WEBAPPS_DIR/ROOT"  "$WORK_PATH/" \
