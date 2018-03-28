@@ -16,13 +16,13 @@ RUN mkdir -p $HOME_PATH $WORK_PATH $LOGS_DIR \
     && wget -O $FILE_NAME $URL
 
 RUN tar -zxvf $FILE_NAME -C $HOME_PATH \
+    && rm $FILE_NAME \
     && cd $HOME_PATH && mv `echo *`/* "$HOME_PATH/" \
     && mv "$WEBAPPS_DIR/ROOT"  "$WORK_PATH/" \
     && rm $WEBAPPS_DIR "$HOME_PATH/logs" -R \
     && ln -s $WORK_PATH $WEBAPPS_DIR \
     && ln -s $LOGS_DIR "$HOME_PATH/logs" \
-    && ln -s "$HOME_PATH/bin/catalina.sh" /usr/bin/catalina.sh \
-    && rm $FILE_NAME
+    && ln -s "$HOME_PATH/bin/catalina.sh" /usr/bin/catalina.sh
 
 
 WORKDIR $WORK_PATH

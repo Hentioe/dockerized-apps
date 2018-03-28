@@ -16,10 +16,10 @@ RUN wget --no-check-certificate -c \
 
 RUN mkdir $HOME_PATH  \
     && tar -zxvf $FILE_NAME -C $HOME_PATH \
-    && (cd $HOME_PATH && mv `echo *`/* "$HOME_PATH/") \
+    && rm $FILE_NAME \
+    && cd $HOME_PATH && mv `echo *`/* "$HOME_PATH/" \
     && ln -s "$HOME_PATH/bin/java" /usr/bin/java \
-    && ln -s "$HOME_PATH/bin/javac" /usr/bin/javac \
-    && rm $FILE_NAME
+    && ln -s "$HOME_PATH/bin/javac" /usr/bin/javac
 
 
 ENV JAVA_TOOL_OPTIONS=$OPTS
