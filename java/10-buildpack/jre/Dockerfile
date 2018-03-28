@@ -16,7 +16,7 @@ RUN wget --no-check-certificate -c \
 
 RUN mkdir $HOME_PATH  \
     && tar -zxvf $FILE_NAME -C $HOME_PATH \
-    && cd $HOME_PATH && mv `echo *`/* "$HOME_PATH/" \
+    && (cd $HOME_PATH && mv `echo *`/* "$HOME_PATH/") \
     && ln -s "$HOME_PATH/bin/java" /usr/bin/java \
     && rm $FILE_NAME
 
