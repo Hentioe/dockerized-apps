@@ -7,12 +7,8 @@ ARG ARCH=10+46
 ARG URL="http://download.oracle.com/otn-pub/java/jdk/${ARCH}/${FILE_HASH}/${FILE_NAME}"
 
 ARG HOME_PATH=/usr/local/java
-ARG LANG=en_US.UTF-8
+ARG OPTS=-Dfile.encoding=UTF8
 
-
-RUN apt-get update \
-    && apt-get -y install locales \
-    && locale-gen $LANG
 
 RUN wget --no-check-certificate -c \
     --header "Cookie: oraclelicense=accept-securebackup-cookie" \
@@ -23,13 +19,10 @@ RUN mkdir $HOME_PATH  \
     && cd $HOME_PATH && mv `echo *`/* "$HOME_PATH/" \
     && ln -s "$HOME_PATH/bin/java" /usr/bin/java \
     && ln -s "$HOME_PATH/bin/javac" /usr/bin/javac \
-    && rm $FILE_NAME \
-    && rm -rf /var/lib/apt/lists/* \
-    && rm -rf /var/lib/apt/lists/partial/*
+    && rm $FILE_NAME
 
 
-ENV LANG=$LANG
-
+ENV JAVA_TOOL_OPTIONS=$OPTS
 ENV JAVA_HOME=$HOME
 ENV CLASSPATH=".:$JAVA_HOME/lib/dt.jar:$JAVA_HOME/lib/tools.jar"
 ENV PATH="$JAVA_HOME/bin:$PATH"
