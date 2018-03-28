@@ -13,15 +13,18 @@ ARG CACHE_DIR=/home/cache
 
 RUN apt-get update \
     && apt-get install unzip
+
 RUN wget -O $FILE_NAME $URL \
     && mkdir $HOME_PATH  \
     && unzip $FILE_NAME -d $HOME_PATH
-RUN rm $FILE_NAME \
-    && cd $HOME_PATH && mv `echo *`/* "$HOME_PATH/" \
-    && rm -rf /var/lib/apt/lists/* \
+
+RUN cd $HOME_PATH && mv `echo *`/* "$HOME_PATH/" \
     && mkdir -p $CONFIG_DIR $CACHE_DIR \
     && ln -s $CACHE_DIR "$CONFIG_DIR/caches" \
-    && ln -s "$HOME_PATH/bin/gradle" /usr/bin/gradle
+    && ln -s "$HOME_PATH/bin/gradle" /usr/bin/gradle \
+    && rm $FILE_NAME \
+    && rm -rf /var/lib/apt/lists/* \
+    && rm -rf /var/lib/apt/lists/partial/*
 
 
 WORKDIR $WORK_PATH

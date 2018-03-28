@@ -14,12 +14,12 @@ ARG CACHE_DIR=/home/cache
 RUN wget -O $FILE_NAME $URL \
     && mkdir $HOME_PATH \
     && tar -zxvf $FILE_NAME -C $HOME_PATH
-RUN rm $FILE_NAME \
-    && cd $HOME_PATH && mv `echo *`/* "$HOME_PATH/" \
-    && rm -rf /var/lib/apt/lists/* \
+
+RUN cd $HOME_PATH && mv `echo *`/* "$HOME_PATH/" \
     && ln -s "$HOME_PATH/bin/mvn" /usr/bin/mvn \
     && mkdir -p $CONFIG_DIR $CACHE_DIR \
-    && ln -s $CACHE_DIR "$CONFIG_DIR/repository"
+    && ln -s $CACHE_DIR "$CONFIG_DIR/repository" \
+    && rm $FILE_NAME
 
 
 WORKDIR $WORD_PATH
