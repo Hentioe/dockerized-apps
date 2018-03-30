@@ -17,7 +17,7 @@ RUN mkdir -p $HOME_PATH $WORK_PATH $LOGS_DIR \
     && tar -zxvf $FILE_NAME -C $HOME_PATH \
     && rm $FILE_NAME \
     && cd $HOME_PATH && mv `echo *`/* "$HOME_PATH/" \
-    && mv "$WEBAPPS_DIR/*"  "$WORK_PATH/" \
+    && mv "$WEBAPPS_DIR/"*  "$WORK_PATH/" \
     && rm $WEBAPPS_DIR "$HOME_PATH/logs" -R \
     && ln -s $WORK_PATH $WEBAPPS_DIR \
     && ln -s $LOGS_DIR "$HOME_PATH/logs" \
