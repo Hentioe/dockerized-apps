@@ -22,7 +22,8 @@ docker run -ti --name udp2raw-tunnel -d --net=host --cap-add NET_ADMIN -restart=
 例子：
 
 ```` bash
-docker run -ti --name udp2raw-tunnel -d --net=host --cap-add NET_ADMIN -restart=always bluerain/udp2raw-tunnel -s -l0.0.0.0:4096  -r127.0.0.1:4097 -a -k "passwd" --raw-mode faketcp --cipher-mode xor
+docker run -ti --name udp2raw-tunnel -d --net=host --cap-add NET_ADMIN -restart=always \
+bluerain/udp2raw-tunnel -s -l0.0.0.0:4096  -r127.0.0.1:4097 -a -k "passwd" --raw-mode faketcp --cipher-mode xor
 ````
 
 附加：因为 udp2raw-tunnel 需要向 iptables 中添加规则，所以需要添加 NET_ADMIN 这个 Capability
