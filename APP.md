@@ -16,7 +16,7 @@
 #### 使用方式
 
 ```` bash
-docker run -ti --name udp2raw-tunnel -d --net --cap-add NET_ADMIN bluerain/udp2raw-tunnel <ARGS>
+docker run -ti --name udp2raw-tunnel -d --net=host --cap-add NET_ADMIN bluerain/udp2raw-tunnel <ARGS>
 ````
 
 附加：因为 udp2raw-tunnel 需要向 iptables 中添加规则，所以需要添加 NET_ADMIN 这个 Capability
