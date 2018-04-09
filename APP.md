@@ -14,16 +14,16 @@
 |bluerain/udp2raw-tunnel|alpine:3.7|
 
 #### 使用方式
-
+-
 ```` bash
-docker run -ti --name udp2raw-tunnel -d --net=host --cap-add NET_ADMIN -restart=always \
+docker run -ti --name udp2raw-tunnel -d --net=host --cap-add NET_ADMIN --restart=always \
 bluerain/udp2raw-tunnel <ARGS>
 ````
 
 例子：
 
 ```` bash
-docker run -ti --name udp2raw-tunnel -d --net=host --cap-add NET_ADMIN -restart=always \
+docker run -ti --name udp2raw-tunnel -d --net=host --cap-add NET_ADMIN --restart=always \
 bluerain/udp2raw-tunnel -s -l0.0.0.0:4096  -r127.0.0.1:4097 -a -k "passwd" --raw-mode faketcp --cipher-mode xor
 ````
 
