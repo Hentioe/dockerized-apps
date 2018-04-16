@@ -21,7 +21,7 @@ RUN apk update \
 
 
 
-WORKDIR $WORK_PATH
+WORKDIR $TARGET
 
 
 
