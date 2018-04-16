@@ -1,3 +1,3 @@
 #!/usr/bin/env sh
 
-glide install && cd "$GOPATH/src/targetProject" && go build -o bin
+glide install && cd "$GOPATH/src/targetProject" && go build -ldflags "-s -w" -o bin
