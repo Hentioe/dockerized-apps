@@ -1,7 +1,7 @@
-FROM alpine:3.7
+FROM alpine:3.8
 
 
-ARG TAG_NAME=v2%4020171125.0
+ARG TAG_NAME=20180522.0
 ARG FILE_NAME=speederv2_binaries.tar.gz
 ARG DL_ADRESS="https://github.com/wangyu-/UDPspeeder/releases/download/$TAG_NAME/$FILE_NAME"
 ARG ARCH=amd64
