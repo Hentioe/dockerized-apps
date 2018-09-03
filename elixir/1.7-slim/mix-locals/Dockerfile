@@ -1,4 +1,4 @@
-FROM elixir:1.7.2-slim
+FROM elixir:1.7.3-slim
 
 
 RUN apt-get update \
