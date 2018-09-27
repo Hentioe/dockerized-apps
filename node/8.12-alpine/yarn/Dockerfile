@@ -9,7 +9,9 @@ ARG CONFIG_DIR=/usr/local/share/.cache/yarn
 COPY ./build.sh /usr/bin/build
 
 
-RUN chmod +x /usr/bin/build \
+RUN apk update \
+    && apk --no-cache add util-linux \
+    && chmod +x /usr/bin/build \
     && mkdir -p $WORK_PATH $CACHE_DIR $CONFIG_DIR \
     && ln -s $CACHE_DIR "$CONFIG_DIR/v1"
 
