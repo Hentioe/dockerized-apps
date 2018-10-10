@@ -1,7 +1,7 @@
 FROM alpine:3.8
 
 
-ARG TAG_NAME=20180225.0
+ARG TAG_NAME=20180830.2
 ARG FILE_NAME=udp2raw_binaries.tar.gz
 ARG DL_ADRESS="https://github.com/wangyu-/udp2raw-tunnel/releases/download/$TAG_NAME/$FILE_NAME"
 ARG ARCH=amd64_hw_aes
