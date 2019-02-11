@@ -9,4 +9,7 @@ RUN mix local.hex --force \
     && mix local.rebar --force
 
 
+WORKDIR /code
+
+
 CMD ["iex"]
