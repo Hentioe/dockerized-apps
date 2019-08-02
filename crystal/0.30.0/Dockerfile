@@ -13,6 +13,7 @@ RUN apt update && \
                 libreadline-dev \
                 libz-dev -y && \
     apt purge curl gnupg gnupg2 -y && \
+    apt autoremove -y && \
     rm -rf /var/lib/apt/lists/* && \
     rm -rf /var/lib/apt/lists/partial/*
 
