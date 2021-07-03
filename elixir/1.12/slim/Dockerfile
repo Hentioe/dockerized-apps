@@ -1,4 +1,4 @@
-FROM elixir:1.12.1-slim
+FROM elixir:1.12.2-slim
 
 
 RUN apt-get update \
