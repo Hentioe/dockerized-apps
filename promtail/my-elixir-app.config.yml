@@ -1,0 +1,36 @@
+# 此配置文件包含对 Elixir 应用日志的多行合并和日期删除，仅兼容以下 `:logger` 格式
+# config :logger, :console, format: "$time $metadata[$level] $message\n"
+
+server:
+  http_listen_port: 9080
+  grpc_listen_port: 0
+
+clients:
+  - url: http://monitoring.hentioe.dev:3100/loki/api/v1/push
+    tenant_id: 1
+
+scrape_configs:
+  - job_name: _scrape
+
+    docker_sd_configs:
+      - host: unix:///var/run/docker.sock
+        refresh_interval: 5s
+        filters:
+          - name: name
+            values: ["-server-*"]
+
+    pipeline_stages:
+      - multiline:
+          # 包含
+          #firstline: '^(?:\S+)?\d{2}:\d{2}:\d{2}\.\d{3}\s(?:request_id=[^\s]+\s+)?\[[^\\]+\]'
+          # 不包含 Phoenix
+          firstline: '^(?:\S+)?\d{2}:\d{2}:\d{2}\.\d{3}\s+\[[^\\]+\]'
+          max_wait_time: 3s
+      - replace:
+          expression: '^(?:\S+)?(\d{2}:\d{2}:\d{2}\.\d{3}\s+)'
+          replace: ""
+
+    relabel_configs:
+      - source_labels: ["__meta_docker_container_name"]
+        regex: "/(.*)"
+        target_label: "container"
