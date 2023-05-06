@@ -1,4 +1,5 @@
-# 此配置文件包含对 Elixir 应用日志的多行合并和日期删除，仅兼容以下 `:logger` 格式
+# UpdateAt: 2023-05-07-1
+# 此配置文件包含对 Elixir 应用日志的多行合并和日期删除，仅兼容以下 `:logger` 格式：
 # config :logger, :console, format: "$time $metadata[$level] $message\n"
 
 server:
@@ -20,14 +21,17 @@ scrape_configs:
             values: ["-server-*"]
 
     pipeline_stages:
+      # 单个日志行的例子：
+      # \u001b[0m \b\u001b17:21:58.721 request_id=F1ydqw2HT-gofoAACsCh error_code=101 [info] Sent 200 in 282µs
+      # 上面的 ` \b` 为何会插在 ANSI 颜色代码中尚不清楚，但已存在有此现象的项目，故也做兼容。
       - multiline:
-          # 包含
-          #firstline: '^(?:\S+)?\d{2}:\d{2}:\d{2}\.\d{3}\s(?:request_id=[^\s]+\s+)?\[[^\\]+\]'
-          # 不包含 Phoenix
-          firstline: '^(?:\S+)?\d{2}:\d{2}:\d{2}\.\d{3}\s+\[[^\\]+\]'
+          # 此表达式兼容可选的 ANSI 颜色，可选的 metadata。
+          firstline: '^(?:[^:]+)?\d{2}:\d{2}:\d{2}\.\d{3}\s(?:.+=.+\s+)*\[[^\\]+\]'
           max_wait_time: 3s
       - replace:
-          expression: '^(?:\S+)?(\d{2}:\d{2}:\d{2}\.\d{3}\s+)'
+          # 删除日志中的时间（将时间加空格替换为空字符串）
+          # 此表达式兼容可选的 ANSI 颜色
+          expression: '^(?:[^:]+)?(\d{2}:\d{2}:\d{2}\.\d{3}\s+)'
           replace: ""
 
     relabel_configs:
