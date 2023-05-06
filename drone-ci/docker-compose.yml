@@ -1,0 +1,28 @@
+version: "3"
+
+services:
+  server:
+    image: drone/drone:2
+    ports:
+      - 8081:80
+    restart: always
+    environment:
+      DRONE_GITHUB_CLIENT_ID: ${DRONE_GITHUB_CLIENT_ID}
+      DRONE_GITHUB_CLIENT_SECRET: "$DRONE_GITHUB_CLIENT_SECRET"
+      DRONE_RPC_SECRET: "$DRONE_RPC_SECRET"
+      DRONE_SERVER_HOST: "$DRONE_SERVER_HOST"
+      DRONE_SERVER_PROTO: https
+      DRONE_USER_FILTER: Hentioe
+      DRONE_USER_CREATE: username:Hentioe,admin:true
+    volumes:
+      - ./_data:/data
+
+  runner:
+    image: drone/drone-runner-docker:1
+    restart: always
+    environment:
+      DRONE_RPC_HOST: server
+      DRONE_RPC_PROTO: http
+      DRONE_RPC_SECRET: "$DRONE_RPC_SECRET"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
