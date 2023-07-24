@@ -1,0 +1,16 @@
+version: "3"
+
+services:
+  server:
+    image: rundeck/rundeck:4.14.2
+    container_name: rundeck
+    restart: always
+    ports:
+      - 4440:4440
+    environment:
+      RUNDECK_GRAILS_URL: https://run.hentioe.dev
+      RUNDECK_SERVER_FORWARDED: true
+    volumes:
+      - ./data:/home/rundeck/server/data
+      - ./realm.properties:/home/rundeck/server/config/realm.properties
+      - ./nodes:/nodes
