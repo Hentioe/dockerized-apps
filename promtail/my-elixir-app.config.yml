@@ -1,4 +1,4 @@
-# UpdateAt: 2023-05-07-1
+# UpdateAt: 2023-10-18
 # 此配置文件包含对 Elixir 应用日志的多行合并和日期删除，仅兼容以下 `:logger` 格式：
 # config :logger, :console, format: "$time $metadata[$level] $message\n"
 
@@ -7,7 +7,7 @@ server:
   grpc_listen_port: 0
 
 clients:
-  - url: http://monitoring.hentioe.dev:3100/loki/api/v1/push
+  - url: http://monitoring.hentioe.dev/loki/api/v1/push
     tenant_id: 1
 
 scrape_configs:
