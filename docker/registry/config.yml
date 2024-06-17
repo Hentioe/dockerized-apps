@@ -1,0 +1,13 @@
+version: 0.1
+
+proxy:
+  remoteurl: https://registry-1.docker.io
+log:
+  level: debug # <- 如果部署后测试没问题，请改为 info
+http:
+  addr: 0.0.0.0:5000
+cache:
+  blobdescriptor: inmemory
+storage:
+  filesystem:
+    rootdirectory: /var/lib/registry
