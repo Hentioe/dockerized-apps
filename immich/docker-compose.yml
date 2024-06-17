@@ -1,0 +1,67 @@
+# WARNING: Make sure to use the docker-compose.yml of the current release:
+#
+# https://github.com/immich-app/immich/releases/latest/download/docker-compose.yml
+#
+# The compose file on main may not be compatible with the latest release.
+#
+services:
+  server:
+    image: ghcr.io/immich-app/immich-server:${IMMICH_VERSION:-release}
+    volumes:
+      - ./upload:/usr/src/app/upload
+    ports:
+      - 2283:3001
+    env_file:
+      - .env
+    depends_on:
+      - redis
+      - database
+    restart: always
+
+  machine-learning:
+    image: ghcr.io/immich-app/immich-machine-learning:${IMMICH_VERSION:-release}
+    volumes:
+      - ./model_cache:/cache
+    env_file:
+      - .env
+    restart: always
+
+  redis:
+    image: redis:7
+    healthcheck:
+      test: redis-cli ping || exit 1
+    command: redis-server /usr/local/etc/redis/redis.conf
+    volumes:
+      - ./redis.conf:/usr/local/etc/redis/redis.conf
+    restart: always
+
+  database:
+    image: tensorchord/pgvecto-rs:pg16-v0.2.1
+    environment:
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_USER: ${DB_USERNAME}
+      POSTGRES_DB: ${DB_DATABASE_NAME}
+      POSTGRES_INITDB_ARGS: "--data-checksums"
+    volumes:
+      - ./data:/var/lib/postgresql/data
+    healthcheck:
+      test: pg_isready --dbname='${DB_DATABASE_NAME}' || exit 1; Chksum="$$(psql --dbname='${DB_DATABASE_NAME}' --username='${DB_USERNAME}' --tuples-only --no-align --command='SELECT COALESCE(SUM(checksum_failures), 0) FROM pg_stat_database')"; echo "checksum failure count is $$Chksum"; [ "$$Chksum" = '0' ] || exit 1
+      interval: 5m
+      start_period: 5m
+    command:
+      [
+        "postgres",
+        "-c",
+        "shared_preload_libraries=vectors.so",
+        "-c",
+        'search_path="$$user", public, vectors',
+        "-c",
+        "logging_collector=on",
+        "-c",
+        "max_wal_size=2GB",
+        "-c",
+        "shared_buffers=512MB",
+        "-c",
+        "wal_compression=on",
+      ]
+    restart: always
