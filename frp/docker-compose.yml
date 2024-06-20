@@ -1,0 +1,6 @@
+services:
+  server:
+    image: snowdreamtech/frps
+    network_mode: host
+    volumes:
+      - ./frps.toml:/etc/frp/frps.toml
