@@ -2,5 +2,6 @@ services:
   server:
     image: snowdreamtech/frps
     network_mode: host
+    restart: unless-stopped
     volumes:
       - ./frps.toml:/etc/frp/frps.toml
