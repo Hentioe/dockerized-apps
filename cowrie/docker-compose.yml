@@ -1,0 +1,9 @@
+services:
+  server:
+    image: cowrie/cowrie
+    container_name: cowrie
+    ports:
+      - 22:2222
+    restart: always
+    environment:
+      COWRIE_TELNET_ENABLED: yes
