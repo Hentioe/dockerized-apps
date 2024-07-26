@@ -1,0 +1,22 @@
+services:
+  db:
+    image: postgres:16
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: ${SHLINK_DB_PASS}
+    volumes:
+      - ./_data:/var/lib/postgresql/data
+
+  server:
+    image: shlinkio/shlink:stable
+    restart: always
+    ports:
+      - 7999:8080
+    environment:
+      DB_DRIVER: postgres
+      DB_HOST: db
+      DB_USER: postgres
+      DB_PASSWORD: ${SHLINK_DB_PASS}
+      DEFAULT_DOMAIN: ${SHLINK_DOMAIN}
+      IS_HTTPS_ENABLED: true
+      GEOLITE_LICENSE_KEY: ${SHLINK_GEOLITE_LICENSE_KEY}
