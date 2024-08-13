@@ -1,0 +1,12 @@
+services:
+  server:
+    image: linuxserver/snapdrop
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Asia/Shanghai
+    volumes:
+      - ./config:/config
+    ports:
+      - 8400:80
+    restart: unless-stopped
