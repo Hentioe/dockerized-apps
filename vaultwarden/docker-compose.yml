@@ -1,0 +1,13 @@
+services:
+  server:
+    image: vaultwarden/server
+    restart: always
+    ports:
+      - 5600:80
+    environment:
+      - DOMAIN=${DOMAIN}
+      - SIGNUPS_ALLOWED=${SIGNUPS_ALLOWED}
+      - ORG_CREATION_USERS=${ORG_CREATION_USERS}
+      - ADMIN_TOKEN=${ADMIN_TOKEN}
+    volumes:
+      - ./_data:/data/
