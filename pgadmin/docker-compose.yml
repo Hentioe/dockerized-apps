@@ -1,0 +1,9 @@
+services:
+  server:
+    image: dpage/pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@example.com
+      PGADMIN_DEFAULT_PASSWORD: admin
+    ports:
+      - 54321:80
+    restart: unless-stopped
