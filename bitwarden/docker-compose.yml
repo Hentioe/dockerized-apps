@@ -1,0 +1,13 @@
+services:
+  self-host:
+    image: bitwarden/self-host:beta
+    restart: always
+    env_file:
+      - .env
+    ports:
+      - 5500:8080
+    volumes:
+      - ./_data:/etc/bitwarden
+    environment:
+      BW_DB_PROVIDER: sqlite
+      BW_DB_FILE: /etc/bitwarden/db.sqlite3
