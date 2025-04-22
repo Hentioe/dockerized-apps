@@ -1,6 +1,6 @@
 services:
   server:
-    image: ghcr.io/plankanban/planka:1.26.0
+    image: ghcr.io/plankanban/planka:1.26.1
     restart: on-failure
     volumes:
       - ./user-avatars:/app/public/user-avatars
