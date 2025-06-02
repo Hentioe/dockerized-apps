@@ -1,19 +1,20 @@
 services:
   server:
-    image: ghcr.io/plankanban/planka:1.26.1
+    image: ghcr.io/plankanban/planka:2.0.0-rc.3
+    ports:
+      - 8080:1337
     restart: on-failure
     volumes:
+      - ./favicons:/app/public/favicons
       - ./user-avatars:/app/public/user-avatars
-      - ./project-background-images:/app/public/project-background-images
+      - ./background-images:/app/public/background-images
       - ./attachments:/app/private/attachments
-    ports:
-      - 4700:1337
     environment:
       - BASE_URL=${BASE_URL}
       - DATABASE_URL=postgresql://postgres@postgres/planka
       - SECRET_KEY=${SECRET_KEY}
 
-      # - TRUST_PROXY=0
+      # - TRUST_PROXY=true
       # - TOKEN_EXPIRES_IN=365 # In days
 
       # related: https://github.com/knex/knex/issues/2354
@@ -28,9 +29,9 @@ services:
       - DEFAULT_ADMIN_PASSWORD=${DEFAULT_ADMIN_PASSWORD}
       - DEFAULT_ADMIN_NAME=${DEFAULT_ADMIN_NAME}
       - DEFAULT_ADMIN_USERNAME=${DEFAULT_ADMIN_USERNAME}
+      # - DEFAULT_LANGUAGE=en-US
 
       # - SHOW_DETAILED_AUTH_ERRORS=false # Set to true to show more detailed authentication error messages. It should not be enabled without a rate limiter for security reasons.
-      # - ALLOW_ALL_TO_CREATE_PROJECTS=true
 
       # - S3_ENDPOINT=
       # - S3_REGION=
@@ -75,15 +76,6 @@ services:
       #     "events": ["cardCreate", "cardUpdate", "cardDelete"],
       #     "excludedEvents": ["notificationCreate", "notificationUpdate"]
       #   }]
-
-      # - SLACK_BOT_TOKEN=
-      # - SLACK_CHANNEL_ID=
-
-      # - GOOGLE_CHAT_WEBHOOK_URL=
-
-      # - TELEGRAM_BOT_TOKEN=
-      # - TELEGRAM_CHAT_ID=
-      # - TELEGRAM_THREAD_ID=
     depends_on:
       postgres:
         condition: service_healthy
