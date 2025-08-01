@@ -1,0 +1,14 @@
+services:
+  server:
+    image: bugsink/bugsink:1.7
+    ports:
+      - ${BUGSINK_PORT}:${BUGSINK_PORT}
+    restart: always
+    environment:
+      - PORT=${BUGSINK_PORT}
+      - BASE_URL=${BUGSINK_BASE_URL}
+      - SECRET_KEY=${BUGSINK_SECRET_KEY}
+      - CREATE_SUPERUSER=${BUGSINK_CREATE_SUPERUSER}
+      - BEHIND_HTTPS_PROXY=true
+    volumes:
+      - ./data:/data
