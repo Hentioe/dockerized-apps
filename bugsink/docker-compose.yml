@@ -1,6 +1,6 @@
 services:
   server:
-    image: bugsink/bugsink:1.7
+    image: bugsink/bugsink:1.7.6
     ports:
       - ${BUGSINK_PORT}:${BUGSINK_PORT}
     restart: always
