@@ -1,6 +1,6 @@
 services:
   server:
-    image: vaultwarden/server
+    image: vaultwarden/server:1.35.1
     restart: always
     ports:
       - 5600:80
