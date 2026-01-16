@@ -1,0 +1,34 @@
+services:
+  server:
+    image: woodpeckerci/woodpecker-server:v3.13.0
+    ports:
+      - 8000:8000
+    restart: always
+    environment:
+      - WOODPECKER_OPEN=true
+      - WOODPECKER_HOST=${WOODPECKER_HOST}
+      - WOODPECKER_GITHUB=true
+      - WOODPECKER_GITHUB_CLIENT=${WOODPECKER_GITHUB_CLIENT}
+      - WOODPECKER_GITHUB_SECRET=${WOODPECKER_GITHUB_SECRET}
+      - WOODPECKER_AGENT_SECRET=${WOODPECKER_AGENT_SECRET}
+      - WOODPECKER_OPEN=false
+      - WOODPECKER_ADMIN=${WOODPECKER_ADMIN}
+      - WOODPECKER_PLUGINS_PRIVILEGED=woodpeckerci/plugin-docker-buildx
+      - WOODPECKER_ENVIRONMENT=${WOODPECKER_ENVIRONMENT}
+    volumes:
+      - ./server-data:/var/lib/woodpecker/
+
+  agent:
+    image: woodpeckerci/woodpecker-agent:v3.13.0
+    command: agent
+    restart: always
+    environment:
+      - WOODPECKER_SERVER=server:9000
+      - WOODPECKER_AGENT_SECRET=${WOODPECKER_AGENT_SECRET}
+      - WOODPECKER_MAX_WORKFLOWS=2
+      - WOODPECKER_BACKEND_DOCKER_VOLUMES=${WOODPECKER_BACKEND_DOCKER_VOLUMES}
+    depends_on:
+      - server
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ./agent-data/:/etc/woodpecker
