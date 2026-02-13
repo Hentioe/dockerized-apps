@@ -1,14 +1,10 @@
 services:
   server:
-    image: ghcr.io/plankanban/planka:2.0.0-rc.4
-    ports:
-      - 8080:1337
-    restart: on-failure
+    image: ghcr.io/plankanban/planka:2.0.0
+    container_name: planka
+    restart: always
     volumes:
-      - ./favicons:/app/public/favicons
-      - ./user-avatars:/app/public/user-avatars
-      - ./background-images:/app/public/background-images
-      - ./attachments:/app/private/attachments
+      - ./data:/app/data
     environment:
       - BASE_URL=${BASE_URL}
       - DATABASE_URL=postgresql://postgres@postgres/planka
@@ -67,6 +63,37 @@ services:
       # - SMTP_PASSWORD=
       # - SMTP_FROM="Demo Demo" <demo@demo.demo>
       # - SMTP_TLS_REJECT_UNAUTHORIZED=false
+      # - MAX_UPLOAD_FILE_SIZE=
+
+      # - STORAGE_LIMIT=
+      # - ACTIVE_USERS_LIMIT=
+
+      # All outgoing HTTP requests (SMTP, webhooks, Apprise notifications, favicon fetching, etc.)
+      # will be sent through this proxy if set.
+      # If commented out, an internal Squid proxy will be started inside the container,
+      # which you can control via OUTGOING_BLOCKED_* and OUTGOING_ALLOWED_* below.
+      # - OUTGOING_PROXY=http://proxy:3128
+
+      # - OIDC_USE_OAUTH_CALLBACK=true
+      # - OIDC_DEBUG=true
+
+      # - SMTP_NAME=
+
+      # Using Gravatar directly exposes user IPs and hashed emails to a third party (GDPR risk).
+      # Use a proxy you control for privacy, or leave commented out or empty to disable.
+      # - GRAVATAR_BASE_URL=https://www.gravatar.com/avatar/
+
+      # --------------------------------------------------------------------
+      # Outgoing traffic control (internal Squid proxy)
+      # --------------------------------------------------------------------
+
+      # These IPs/hostnames will always be blocked (highest priority)
+      # - OUTGOING_BLOCKED_IPS=
+      - OUTGOING_BLOCKED_HOSTS=
+
+      # Only these IPs/hostnames will be reachable
+      # - OUTGOING_ALLOWED_IPS=
+      # - OUTGOING_ALLOWED_HOSTS=
 
       # Optional fields: accessToken, events, excludedEvents
       # - |
@@ -77,12 +104,12 @@ services:
       #     "excludedEvents": ["notificationCreate", "notificationUpdate"]
       #   }]
     depends_on:
-      postgres:
-        condition: service_healthy
+     postgres:
+       condition: service_healthy
 
   postgres:
     image: postgres:16-alpine
-    restart: on-failure
+    restart: always
     volumes:
       - ./db-data:/var/lib/postgresql/data
     environment:
