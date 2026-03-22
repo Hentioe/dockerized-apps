@@ -1,6 +1,6 @@
 services:
   server:
-    image: ghcr.io/plankanban/planka:2.0.0
+    image: ghcr.io/plankanban/planka:2.1.0
     container_name: planka
     restart: always
     volumes:
