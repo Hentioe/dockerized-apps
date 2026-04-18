@@ -1,0 +1,5 @@
+/.env
+/compose.override.yml
+/nodes/
+/server_data/
+/pg_data/

@@ -1,0 +1,26 @@
+services:
+  server:
+    image: rundeck/rundeck:5.20.0
+    container_name: rundeck
+    restart: always
+    environment:
+      RUNDECK_GRAILS_URL: ${RUNDECK_GRAILS_URL}
+      RUNDECK_SERVER_FORWARDED: true
+      RUNDECK_DATABASE_DRIVER: org.postgresql.Driver
+      RUNDECK_DATABASE_URL: jdbc:postgresql://db:5432/rundeck
+      RUNDECK_DATABASE_USERNAME: postgres
+      RUNDECK_DATABASE_PASSWORD: ${RUNDECK_DATABASE_PASSWORD}
+
+    volumes:
+      - ./realm.properties:/home/rundeck/server/config/realm.properties
+      - ./server_data:/home/rundeck/server/data
+      - ./nodes:/nodes
+
+  db:
+    image: postgres:16
+    restart: always
+    volumes:
+      - ./pg_data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_PASSWORD: ${RUNDECK_DATABASE_PASSWORD}
+      POSTGRES_DB: rundeck
