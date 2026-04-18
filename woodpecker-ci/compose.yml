@@ -1,8 +1,6 @@
 services:
   server:
     image: woodpeckerci/woodpecker-server:v3.13.0
-    ports:
-      - 8000:8000
     restart: always
     environment:
       - WOODPECKER_OPEN=true
