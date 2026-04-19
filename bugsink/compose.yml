@@ -1,0 +1,12 @@
+services:
+  server:
+    image: bugsink/bugsink:1.7.6
+    restart: always
+    environment:
+      - PORT=8080
+      - BASE_URL=${BASE_URL}
+      - SECRET_KEY=${SECRET_KEY}
+      - CREATE_SUPERUSER=${CREATE_SUPERUSER}
+      - BEHIND_HTTPS_PROXY=true
+    volumes:
+      - ./data:/data
