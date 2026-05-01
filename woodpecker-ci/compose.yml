@@ -1,6 +1,6 @@
 services:
   server:
-    image: woodpeckerci/woodpecker-server:v3.13.0
+    image: woodpeckerci/woodpecker-server:v3.14.0
     restart: always
     environment:
       - WOODPECKER_OPEN=true
@@ -20,7 +20,7 @@ services:
       - ./server-data:/var/lib/woodpecker/
 
   agent:
-    image: woodpeckerci/woodpecker-agent:v3.13.0
+    image: woodpeckerci/woodpecker-agent:v3.14.0
     command: agent
     restart: always
     environment:
