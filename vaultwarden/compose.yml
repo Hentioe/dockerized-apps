@@ -1,9 +1,7 @@
 services:
   server:
-    image: vaultwarden/server:1.35.7
+    image: vaultwarden/server:1.36.0
     restart: always
-    ports:
-      - 8080:80
     environment:
       - DOMAIN=${DOMAIN}
       - SIGNUPS_ALLOWED=${SIGNUPS_ALLOWED}
