@@ -1,13 +1,12 @@
 services:
   server:
-    image: woodpeckerci/woodpecker-server:v3.14.0
+    image: woodpeckerci/woodpecker-server:v3.14.1
     restart: always
     environment:
       - WOODPECKER_OPEN=true
       - WOODPECKER_HOST=${WOODPECKER_HOST}
       - WOODPECKER_AGENT_SECRET=${WOODPECKER_AGENT_SECRET}
       - WOODPECKER_ADMIN=${WOODPECKER_ADMIN}
-      - WOODPECKER_PLUGINS_PRIVILEGED=woodpeckerci/plugin-docker-buildx
       - WOODPECKER_ENVIRONMENT=${WOODPECKER_ENVIRONMENT}
       - WOODPECKER_GITHUB=${WOODPECKER_GITHUB}
       - WOODPECKER_GITHUB_CLIENT=${WOODPECKER_GITHUB_CLIENT}
@@ -16,11 +15,12 @@ services:
       - WOODPECKER_FORGEJO_URL=${WOODPECKER_FORGEJO_URL}
       - WOODPECKER_FORGEJO_CLIENT=${WOODPECKER_FORGEJO_CLIENT}
       - WOODPECKER_FORGEJO_SECRET=${WOODPECKER_FORGEJO_SECRET}
+      - WOODPECKER_PLUGINS_PRIVILEGED=woodpeckerci/plugin-docker-buildx
     volumes:
       - ./server-data:/var/lib/woodpecker/
 
   agent:
-    image: woodpeckerci/woodpecker-agent:v3.14.0
+    image: woodpeckerci/woodpecker-agent:v3.14.1
     command: agent
     restart: always
     environment:
