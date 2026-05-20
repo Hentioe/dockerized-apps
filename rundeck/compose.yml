@@ -1,6 +1,6 @@
 services:
   server:
-    image: rundeck/rundeck:5.20.0
+    image: rundeck/rundeck:5.20.1
     container_name: rundeck
     restart: always
     environment:
